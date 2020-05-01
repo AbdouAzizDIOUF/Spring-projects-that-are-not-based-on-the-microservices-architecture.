@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Ma Super site</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a th:href="@{/user/index}">Home</a></li>
+                <li><a th:href="@{/admin/formProduit}">Produits</a></li>
+                <li><a href="">Categories</a></li>
+                <li><a href="">Catalogue</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/login}">Deconnexion</a>
+                </li>
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/logout}">Connexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section layout:fragment="content"></section>
+</body>
+</html>

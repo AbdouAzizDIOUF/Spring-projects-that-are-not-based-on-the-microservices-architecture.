@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+    <head>
+        <meta charset="UTF-8">
+        <title>Produits</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container mt-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Liste des produits</div>
+                    <div class="panel-body">
+                        <form th:action="@{/user/index}" method="get">
+                            <label>Mot cle: </label>
+                            <input type="text" name="motCle" th:value="${motCle}">
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </form>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table">
+                            <tr>
+                                <th>ID</th><th>DESIGNATIONS</th><th>PRIX (FCFA)</th><th>QTE</th>
+                            </tr>
+                            <tr th:each="p:${produits}">
+                                <td th:text="${p.id}"></td>
+                                <td th:text="${p.designation}"></td>
+                                <td th:text="${p.prix}"></td>
+                                <td th:text="${p.quantite}"></td>
+                                <td>
+                                    <a onclick="return confirm('Etes-vous vraiment sur de vouloir supprimer ?')" th:href="@{/admin/delete(id=${p.id}, page=${currentPage}, motCle=${motCle})}" class="btn btn-danger">Delete</a>
+                                    &nbsp;&nbsp;&nbsp;<a class="btn btn-success" th:href="@{/admin/edit(id=${p.id})}">Editer</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <ul class="nav nav-pills">
+                            <li th:each="page, status:${pages}" th:class="${currentPage==status.index} ? 'active':''" >
+                                <a th:href="@{/user/index(page=${status.index}, motCle=${motCle})}" th:text="${status.index}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
